@@ -21,29 +21,173 @@
 
   *{ box-sizing: border-box; }
 
-  html{ scroll-behavior: smooth; }
+  html, body{
+    margin: 0;
+    height: 100%;
+  }
 
   body{
-    margin: 0;
     background: var(--bg);
     color: var(--text);
     font-family: 'Inter', sans-serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  /* ---------- App layout ---------- */
+
+  .app{
+    display: flex;
+    height: 100vh;
+  }
+
+  /* ---------- Sidebar ---------- */
+
+  .sidebar{
+    width: 268px;
+    flex-shrink: 0;
+    background: var(--surface);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    padding: 28px 18px;
+    overflow-y: auto;
+  }
+
+  .brand{
+    padding: 4px 12px 24px;
+  }
+
+  .brand .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin: 0 0 6px;
+  }
+
+  .brand h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 26px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .brand h1 em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .nav-section-label{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 4px 12px 10px;
+  }
+
+  .nav-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-item{
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 11px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-item .tag-dot{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+  }
+
+  .nav-item:hover{
+    background: var(--surface-hover);
+    color: var(--text);
+  }
+
+  .nav-item.active{
+    background: var(--surface-hover);
+    border-color: var(--line);
+    color: var(--text);
+  }
+
+  .nav-item.active .tag-dot{
+    background: var(--accent);
+  }
+
+  .sidebar-footer{
+    margin-top: auto;
+    padding: 16px 12px 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--line);
+  }
+
+  /* ---------- Content area ---------- */
+
+  .content{
+    flex: 1;
+    min-width: 0;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .view{
+    display: none;
+    height: 100%;
+  }
+
+  .view.active{
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- Home view ---------- */
+
+  #home.active{
+    display: block;
+    overflow-y: auto;
   }
 
   .wrap{
-    max-width: 920px;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 32px;
   }
-
-  /* ---------- Header / hero ---------- */
 
   header{
     position: relative;
-    padding-top: 64px;
-    padding-bottom: 56px;
+    padding-top: 56px;
+    padding-bottom: 48px;
     overflow: hidden;
     border-bottom: 1px solid var(--line);
   }
@@ -91,7 +235,7 @@
     z-index: 1;
   }
 
-  .eyebrow{
+  .hero-content .eyebrow{
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
     letter-spacing: 0.18em;
@@ -100,16 +244,16 @@
     margin: 0 0 18px;
   }
 
-  h1{
+  h2.page-title{
     font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-size: clamp(40px, 7vw, 64px);
+    font-size: clamp(36px, 6vw, 52px);
     line-height: 1.05;
     margin: 0 0 16px;
     letter-spacing: -0.01em;
   }
 
-  h1 em{
+  h2.page-title em{
     font-style: italic;
     font-weight: 500;
     color: var(--accent);
@@ -118,14 +262,12 @@
   .lead{
     font-size: 17px;
     color: var(--text-muted);
-    max-width: 480px;
+    max-width: 460px;
     margin: 0;
   }
 
-  /* ---------- Dashboard list ---------- */
-
-  main{
-    padding: 56px 0 80px;
+  main.home-main{
+    padding: 48px 0 64px;
   }
 
   .section-label{
@@ -134,26 +276,28 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin: 0 0 28px;
+    margin: 0 0 24px;
   }
 
   .board-list{
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
   }
 
   .board-card{
     display: grid;
-    grid-template-columns: 200px 1fr auto;
-    gap: 24px;
+    grid-template-columns: 180px 1fr auto;
+    gap: 22px;
     align-items: start;
-    padding: 28px;
+    padding: 24px;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 14px;
-    text-decoration: none;
+    text-align: left;
     color: var(--text);
+    font-family: inherit;
+    cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
 
@@ -177,18 +321,18 @@
     padding-top: 4px;
   }
 
-  .board-body h2{
+  .board-body h3{
     font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-size: 22px;
+    font-size: 20px;
     margin: 0 0 8px;
   }
 
   .board-body p{
     margin: 0;
-    font-size: 14.5px;
+    font-size: 14px;
     color: var(--text-muted);
-    max-width: 480px;
+    max-width: 460px;
   }
 
   .board-go{
@@ -196,7 +340,7 @@
     font-size: 13px;
     color: var(--accent-soft);
     white-space: nowrap;
-    padding-top: 6px;
+    padding-top: 4px;
     transition: color 0.2s ease;
   }
 
@@ -213,115 +357,301 @@
     transform: translateX(3px);
   }
 
-  @media (max-width: 720px){
-    .board-card{
-      grid-template-columns: 1fr;
-      gap: 10px;
-      padding: 22px;
-    }
-    .board-go{ padding-top: 0; }
-  }
-
-  /* ---------- Footer ---------- */
-
-  footer{
+  footer.home-footer{
     border-top: 1px solid var(--line);
-    padding: 28px 0 48px;
+    padding: 24px 0 48px;
   }
 
-  footer p{
+  footer.home-footer p{
     margin: 0;
     font-size: 13px;
     color: var(--text-muted);
     font-family: 'JetBrains Mono', monospace;
   }
 
-  footer a{
-    color: var(--accent-soft);
-    text-decoration: none;
+  /* ---------- Dashboard views ---------- */
+
+  .view-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+    flex-shrink: 0;
   }
 
-  footer a:hover{
+  .view-header h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .view-header .external-link{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--accent-soft);
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 7px 12px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .view-header .external-link:hover{
     color: var(--accent);
+    border-color: var(--accent-soft);
+  }
+
+  .board-frame{
+    flex: 1;
+    width: 100%;
+    border: none;
+    background: var(--bg);
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 760px){
+    body{ overflow: auto; }
+
+    .app{
+      flex-direction: column;
+      height: auto;
+      min-height: 100vh;
+    }
+
+    .sidebar{
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      padding: 14px 16px;
+      gap: 8px;
+      overflow-y: visible;
+    }
+
+    .brand{
+      padding: 0;
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+
+    .brand h1{ font-size: 18px; }
+    .brand .eyebrow{ display: none; }
+
+    .nav-section-label{ display: none; }
+
+    .nav-list{
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .nav-item{
+      width: auto;
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .sidebar-footer{ display: none; }
+
+    .content{
+      height: auto;
+    }
+
+    .view.active{
+      min-height: calc(100vh - 64px);
+    }
+
+    #home.active{
+      overflow-y: visible;
+    }
+
+    .board-frame{
+      min-height: 70vh;
+    }
+
+    .board-card{
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .board-go{ padding-top: 0; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="peaks" aria-hidden="true">
-    <svg viewBox="0 0 920 320" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-      <!-- back ridge -->
-      <path d="M0,320 L0,200 L160,120 L320,190 L480,90 L640,180 L800,110 L920,200 L920,320 Z"
-            fill="#19212c" />
-      <!-- front ridge -->
-      <path d="M0,320 L0,250 L120,170 L260,230 L400,140 L540,220 L700,150 L860,235 L920,210 L920,320 Z"
-            fill="#141a23" />
-      <!-- transmission line over peaks -->
-      <path class="grid-line"
-            d="M-20,210 L120,170 L180,200 L260,230 L340,170 L400,140 L470,175 L540,220 L620,160 L700,150 L780,205 L860,235 L940,200" />
-      <circle class="grid-node" cx="120" cy="170" r="3.5"/>
-      <circle class="grid-node" cx="400" cy="140" r="3.5"/>
-      <circle class="grid-node" cx="540" cy="220" r="3.5"/>
-      <circle class="grid-node" cx="700" cy="150" r="3.5"/>
-      <circle class="grid-node" cx="860" cy="235" r="3.5"/>
-    </svg>
-  </div>
+<div class="app">
 
-  <div class="wrap hero-content">
-    <p class="eyebrow">Panel interno · Cuyo / Comahue</p>
-    <h1>Aconcagua <em>Home</em></h1>
-    <p class="lead">Punto de entrada a los tableros operativos y comerciales. Elegí uno para abrirlo.</p>
-  </div>
-</header>
+  <nav class="sidebar">
+    <div class="brand">
+      <p class="eyebrow">Panel interno · Cuyo / Comahue</p>
+      <h1>Aconcagua <em>Home</em></h1>
+    </div>
 
-<main class="wrap">
-  <p class="section-label">Tableros disponibles</p>
+    <p class="nav-section-label">Tableros</p>
 
-  <div class="board-list">
+    <ul class="nav-list">
+      <li><button class="nav-item active" data-target="home"><span class="tag-dot"></span>Inicio</button></li>
+      <li><button class="nav-item" data-target="altovalle"><span class="tag-dot"></span>Estado Alto Valle</button></li>
+      <li><button class="nav-item" data-target="contratos"><span class="tag-dot"></span>Contratos de Energía</button></li>
+      <li><button class="nav-item" data-target="grandesusuarios"><span class="tag-dot"></span>Grandes Usuarios y MATE</button></li>
+      <li><button class="nav-item" data-target="calculadora"><span class="tag-dot"></span>Calculadora de Ahorros GU</button></li>
+    </ul>
 
-    <a class="board-card" href="https://daniraggio.github.io/CTAVAL/" target="_blank" rel="noopener">
-      <span class="board-tag">Alto Valle · Operación</span>
-      <div class="board-body">
+    <div class="sidebar-footer">
+      Aconcagua Home · uso interno.<br>Migrará a un servidor privado más adelante.
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <!-- ---------- HOME ---------- -->
+    <section id="home" class="view active">
+      <header>
+        <div class="peaks" aria-hidden="true">
+          <svg viewBox="0 0 760 280" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,280 L0,180 L130,110 L260,170 L390,80 L520,160 L650,100 L760,180 L760,280 Z" fill="#19212c" />
+            <path d="M0,280 L0,220 L100,150 L210,200 L330,125 L440,195 L570,135 L700,205 L760,185 L760,280 Z" fill="#141a23" />
+            <path class="grid-line" d="M-20,185 L100,150 L150,175 L210,200 L280,150 L330,125 L390,155 L440,195 L510,140 L570,135 L640,180 L700,205 L770,175" />
+            <circle class="grid-node" cx="100" cy="150" r="3.2"/>
+            <circle class="grid-node" cx="330" cy="125" r="3.2"/>
+            <circle class="grid-node" cx="440" cy="195" r="3.2"/>
+            <circle class="grid-node" cx="570" cy="135" r="3.2"/>
+            <circle class="grid-node" cx="700" cy="205" r="3.2"/>
+          </svg>
+        </div>
+
+        <div class="wrap hero-content">
+          <p class="eyebrow">Panel interno · Cuyo / Comahue</p>
+          <h2 class="page-title">Aconcagua <em>Home</em></h2>
+          <p class="lead">Punto de entrada a los tableros operativos y comerciales. Elegí uno para abrirlo acá mismo.</p>
+        </div>
+      </header>
+
+      <main class="home-main wrap">
+        <p class="section-label">Tableros disponibles</p>
+
+        <div class="board-list">
+
+          <button class="board-card" data-target="altovalle">
+            <span class="board-tag">Alto Valle · Operación</span>
+            <div class="board-body">
+              <h3>Estado Alto Valle</h3>
+              <p>Análisis de la generación y estimación de la remuneración y costos de la Central Térmica Alto Valle.</p>
+            </div>
+            <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
+          </button>
+
+          <button class="board-card" data-target="contratos">
+            <span class="board-tag">Comercial · Contratos</span>
+            <div class="board-body">
+              <h3>Contratos de Energía</h3>
+              <p>Tablero con los contratos de energía vigentes en el MATE. Podés buscar por plazo, tecnología, y otros filtros.</p>
+            </div>
+            <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
+          </button>
+
+          <button class="board-card" data-target="grandesusuarios">
+            <span class="board-tag">MEM · Grandes usuarios</span>
+            <div class="board-body">
+              <h3>Grandes Usuarios y Contratos MATE</h3>
+              <p>Tablero para analizar el consumo de los Grandes Usuarios y si tienen contratos MATE asociados.</p>
+            </div>
+            <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
+          </button>
+
+          <button class="board-card" data-target="calculadora">
+            <span class="board-tag">MEM · Simulación</span>
+            <div class="board-body">
+              <h3>Calculadora de Ahorros Grandes Usuarios</h3>
+              <p>Calculadora para estimar ahorros en contratos MATE térmicos y renovables frente al MEM.</p>
+            </div>
+            <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
+          </button>
+
+        </div>
+      </main>
+
+      <footer class="home-footer wrap">
+        <p>Aconcagua Home · uso interno. Migrará a un servidor privado más adelante.</p>
+      </footer>
+    </section>
+
+    <!-- ---------- ALTO VALLE ---------- -->
+    <section id="altovalle" class="view">
+      <div class="view-header">
         <h2>Estado Alto Valle</h2>
-        <p>Análisis de la generación y estimación de la remuneración y costos de la Central Térmica Alto Valle.</p>
+        <a class="external-link" href="https://daniraggio.github.io/CTAVAL/" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
       </div>
-      <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
-    </a>
+      <iframe class="board-frame" data-src="https://daniraggio.github.io/CTAVAL/" title="Estado Alto Valle" loading="lazy"></iframe>
+    </section>
 
-    <a class="board-card" href="https://daniraggio.github.io/dashboard-energia/index.html" target="_blank" rel="noopener">
-      <span class="board-tag">Comercial · Contratos</span>
-      <div class="board-body">
+    <!-- ---------- CONTRATOS ---------- -->
+    <section id="contratos" class="view">
+      <div class="view-header">
         <h2>Contratos de Energía</h2>
-        <p>Tablero con los contratos de energía vigentes en el MATE. Podés buscar por plazo, tecnología, y otros filtros.</p>
+        <a class="external-link" href="https://daniraggio.github.io/dashboard-energia/index.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
       </div>
-      <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
-    </a>
+      <iframe class="board-frame" data-src="https://daniraggio.github.io/dashboard-energia/index.html" title="Contratos de Energía" loading="lazy"></iframe>
+    </section>
 
-    <a class="board-card" href="https://daniraggio.github.io/dashboard-MEM/" target="_blank" rel="noopener">
-      <span class="board-tag">MEM · Grandes usuarios</span>
-      <div class="board-body">
+    <!-- ---------- GRANDES USUARIOS ---------- -->
+    <section id="grandesusuarios" class="view">
+      <div class="view-header">
         <h2>Grandes Usuarios y Contratos MATE</h2>
-        <p>Tablero para analizar el consumo de los Grandes Usuarios y si tienen contratos MATE asociados.</p>
+        <a class="external-link" href="https://daniraggio.github.io/dashboard-MEM/" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
       </div>
-      <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
-    </a>
+      <iframe class="board-frame" data-src="https://daniraggio.github.io/dashboard-MEM/" title="Grandes Usuarios y Contratos MATE" loading="lazy"></iframe>
+    </section>
 
-    <a class="board-card" href="https://daniraggio.github.io/calculadora-ahorros/" target="_blank" rel="noopener">
-      <span class="board-tag">MEM · Simulación</span>
-      <div class="board-body">
+    <!-- ---------- CALCULADORA ---------- -->
+    <section id="calculadora" class="view">
+      <div class="view-header">
         <h2>Calculadora de Ahorros Grandes Usuarios</h2>
-        <p>Calculadora para estimar ahorros en contratos MATE térmicos y renovables frente al MEM.</p>
+        <a class="external-link" href="https://daniraggio.github.io/calculadora-ahorros/" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
       </div>
-      <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
-    </a>
+      <iframe class="board-frame" data-src="https://daniraggio.github.io/calculadora-ahorros/" title="Calculadora de Ahorros Grandes Usuarios" loading="lazy"></iframe>
+    </section>
 
   </div>
-</main>
+</div>
 
-<footer class="wrap">
-  <p>Aconcagua Home · uso interno. Migrará a un servidor privado más adelante.</p>
-</footer>
+<script>
+  const navItems = document.querySelectorAll('[data-target]');
+  const views = document.querySelectorAll('.view');
+
+  function activate(target){
+    views.forEach(v => v.classList.toggle('active', v.id === target));
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.classList.toggle('active', item.dataset.target === target);
+    });
+
+    // Lazy-load the iframe only the first time its view is opened
+    const view = document.getElementById(target);
+    if (view){
+      const frame = view.querySelector('iframe[data-src]');
+      if (frame){
+        frame.src = frame.dataset.src;
+        frame.removeAttribute('data-src');
+      }
+    }
+
+    window.scrollTo(0, 0);
+  }
+
+  navItems.forEach(el => {
+    el.addEventListener('click', () => activate(el.dataset.target));
+  });
+</script>
 
 </body>
 </html>
