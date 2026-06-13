@@ -53,10 +53,78 @@
     flex-direction: column;
     padding: 28px 18px;
     overflow-y: auto;
+    overflow-x: hidden;
+    transition: width 0.22s ease, padding 0.22s ease;
+  }
+
+  .sidebar.collapsed{
+    width: 76px;
+    padding: 28px 12px;
+  }
+
+  .sidebar-toggle{
+    align-self: flex-end;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--text-muted);
+    cursor: pointer;
+    margin-bottom: 18px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .sidebar-toggle:hover{
+    color: var(--accent);
+    border-color: var(--accent-soft);
+  }
+
+  .sidebar-toggle svg{
+    width: 15px;
+    height: 15px;
+    transition: transform 0.25s ease;
+  }
+
+  .sidebar.collapsed .sidebar-toggle{
+    align-self: center;
+  }
+
+  .sidebar.collapsed .sidebar-toggle svg{
+    transform: rotate(180deg);
   }
 
   .brand{
+    display: flex;
+    align-items: center;
+    gap: 12px;
     padding: 4px 12px 24px;
+    overflow: hidden;
+  }
+
+  .brand-mark{
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: var(--surface-hover);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--accent);
+  }
+
+  .brand-text{
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .brand .eyebrow{
@@ -82,6 +150,14 @@
     color: var(--accent);
   }
 
+  .sidebar.collapsed .brand{
+    justify-content: center;
+  }
+
+  .sidebar.collapsed .brand-text{
+    display: none;
+  }
+
   .nav-section-label{
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -89,6 +165,14 @@
     text-transform: uppercase;
     color: var(--text-muted);
     margin: 4px 12px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .sidebar.collapsed .nav-section-label{
+    opacity: 0;
+    height: 0;
+    margin: 0;
   }
 
   .nav-list{
@@ -116,6 +200,22 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .nav-item .nav-label{
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sidebar.collapsed .nav-item{
+    justify-content: center;
+    padding: 11px 0;
+  }
+
+  .sidebar.collapsed .nav-item .nav-label{
+    display: none;
   }
 
   .nav-item .tag-dot{
@@ -149,6 +249,16 @@
     font-size: 11.5px;
     color: var(--text-muted);
     border-top: 1px solid var(--line);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .sidebar.collapsed .sidebar-footer{
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    border-top: none;
+    margin-top: auto;
   }
 
   /* ---------- Content area ---------- */
@@ -436,6 +546,10 @@
       overflow-y: visible;
     }
 
+    .sidebar-toggle{ display: none; }
+
+    .brand-mark{ display: none; }
+
     .brand{
       padding: 0;
       flex-shrink: 0;
@@ -491,19 +605,26 @@
 <div class="app">
 
   <nav class="sidebar">
+    <button class="sidebar-toggle" id="sidebarToggle" title="Compactar / expandir menú" aria-label="Compactar o expandir el menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+
     <div class="brand">
-      <p class="eyebrow">Panel interno · Cuyo / Comahue</p>
-      <h1>Aconcagua <em>Home</em></h1>
+      <div class="brand-mark">A</div>
+      <div class="brand-text">
+        <p class="eyebrow">Panel interno · Cuyo / Comahue</p>
+        <h1>Aconcagua <em>Home</em></h1>
+      </div>
     </div>
 
     <p class="nav-section-label">Tableros</p>
 
     <ul class="nav-list">
-      <li><button class="nav-item active" data-target="home"><span class="tag-dot"></span>Inicio</button></li>
-      <li><button class="nav-item" data-target="altovalle"><span class="tag-dot"></span>Estado Alto Valle</button></li>
-      <li><button class="nav-item" data-target="contratos"><span class="tag-dot"></span>Contratos de Energía</button></li>
-      <li><button class="nav-item" data-target="grandesusuarios"><span class="tag-dot"></span>Grandes Usuarios y MATE</button></li>
-      <li><button class="nav-item" data-target="calculadora"><span class="tag-dot"></span>Calculadora de Ahorros GU</button></li>
+      <li><button class="nav-item active" data-target="home" title="Inicio"><span class="tag-dot"></span><span class="nav-label">Inicio</span></button></li>
+      <li><button class="nav-item" data-target="altovalle" title="Estado Alto Valle"><span class="tag-dot"></span><span class="nav-label">Estado Alto Valle</span></button></li>
+      <li><button class="nav-item" data-target="contratos" title="Contratos de Energía"><span class="tag-dot"></span><span class="nav-label">Contratos de Energía</span></button></li>
+      <li><button class="nav-item" data-target="grandesusuarios" title="Grandes Usuarios y MATE"><span class="tag-dot"></span><span class="nav-label">Grandes Usuarios y MATE</span></button></li>
+      <li><button class="nav-item" data-target="calculadora" title="Calculadora de Ahorros GU"><span class="tag-dot"></span><span class="nav-label">Calculadora de Ahorros GU</span></button></li>
     </ul>
 
     <div class="sidebar-footer">
@@ -627,6 +748,14 @@
 <script>
   const navItems = document.querySelectorAll('[data-target]');
   const views = document.querySelectorAll('.view');
+  const sidebar = document.querySelector('.sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const DESKTOP_BREAKPOINT = 760;
+
+  function setCollapsed(collapsed){
+    if (window.innerWidth <= DESKTOP_BREAKPOINT) return; // sidebar mobile ya es compacta
+    sidebar.classList.toggle('collapsed', collapsed);
+  }
 
   function activate(target){
     views.forEach(v => v.classList.toggle('active', v.id === target));
@@ -645,11 +774,19 @@
       }
     }
 
+    // Más lugar para el tablero: compactar el menú al abrir uno,
+    // y volver a expandirlo al ir a Inicio.
+    setCollapsed(target !== 'home');
+
     window.scrollTo(0, 0);
   }
 
   navItems.forEach(el => {
     el.addEventListener('click', () => activate(el.dataset.target));
+  });
+
+  sidebarToggle.addEventListener('click', () => {
+    setCollapsed(!sidebar.classList.contains('collapsed'));
   });
 </script>
 
