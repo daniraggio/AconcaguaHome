@@ -622,6 +622,8 @@
     <ul class="nav-list">
       <li><button class="nav-item active" data-target="home" title="Inicio"><span class="tag-dot"></span><span class="nav-label">Inicio</span></button></li>
       <li><button class="nav-item" data-target="altovalle" title="Estado Alto Valle"><span class="tag-dot"></span><span class="nav-label">Estado Alto Valle</span></button></li>
+      <li><button class="nav-item" data-target="apicammesa" title="API CAMMESA"><span class="tag-dot"></span><span class="nav-label">API CAMMESA</span></button></li>
+      <li><button class="nav-item" data-target="progsem" title="Programación Semanal"><span class="tag-dot"></span><span class="nav-label">Programación Semanal</span></button></li>
       <li><button class="nav-item" data-target="contratos" title="Contratos de Energía"><span class="tag-dot"></span><span class="nav-label">Contratos de Energía</span></button></li>
       <li><button class="nav-item" data-target="grandesusuarios" title="Grandes Usuarios y MATE"><span class="tag-dot"></span><span class="nav-label">Grandes Usuarios y MATE</span></button></li>
       <li><button class="nav-item" data-target="calculadora" title="Calculadora de Ahorros GU"><span class="tag-dot"></span><span class="nav-label">Calculadora de Ahorros GU</span></button></li>
@@ -671,6 +673,24 @@
             <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
           </button>
 
+          <button class="board-card" data-target="apicammesa">
+            <span class="board-tag">CAMMESA · Tiempo real</span>
+            <div class="board-body">
+              <h3>API CAMMESA</h3>
+              <p>Valores en tiempo real obtenidos desde la API de CAMMESA: despacho, frecuencia y estado del sistema.</p>
+            </div>
+            <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
+          </button>
+
+          <button class="board-card" data-target="progsem">
+            <span class="board-tag">Operación · Despacho</span>
+            <div class="board-body">
+              <h3>Programación Semanal</h3>
+              <p>Programación semanal de despacho de combustibles y máquinas.</p>
+            </div>
+            <span class="board-go">Abrir tablero <span class="arrow">→</span></span>
+          </button>
+
           <button class="board-card" data-target="contratos">
             <span class="board-tag">Comercial · Contratos</span>
             <div class="board-body">
@@ -710,36 +730,54 @@
     <section id="altovalle" class="view">
       <div class="view-header">
         <h2>Estado Alto Valle</h2>
-        <a class="external-link" href="https://daniraggio.github.io/CTAVAL/" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
+        <a class="external-link" href="./tableros/ctaval.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
       </div>
-      <iframe class="board-frame" data-src="https://daniraggio.github.io/CTAVAL/" title="Estado Alto Valle" loading="lazy"></iframe>
+      <iframe class="board-frame" data-src="./tableros/ctaval.html" title="Estado Alto Valle" loading="lazy"></iframe>
     </section>
 
     <!-- ---------- CONTRATOS ---------- -->
     <section id="contratos" class="view">
       <div class="view-header">
         <h2>Contratos de Energía</h2>
-        <a class="external-link" href="https://daniraggio.github.io/dashboard-energia/index.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
+        <a class="external-link" href="./tableros/contratos.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
       </div>
-      <iframe class="board-frame" data-src="https://daniraggio.github.io/dashboard-energia/index.html" title="Contratos de Energía" loading="lazy"></iframe>
+      <iframe class="board-frame" data-src="./tableros/contratos.html" title="Contratos de Energía" loading="lazy"></iframe>
     </section>
 
     <!-- ---------- GRANDES USUARIOS ---------- -->
     <section id="grandesusuarios" class="view">
       <div class="view-header">
         <h2>Grandes Usuarios y Contratos MATE</h2>
-        <a class="external-link" href="https://daniraggio.github.io/dashboard-MEM/" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
+        <a class="external-link" href="./tableros/GUyMATE.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
       </div>
-      <iframe class="board-frame" data-src="https://daniraggio.github.io/dashboard-MEM/" title="Grandes Usuarios y Contratos MATE" loading="lazy"></iframe>
+      <iframe class="board-frame" data-src="./tableros/GUyMATE.html" title="Grandes Usuarios y Contratos MATE" loading="lazy"></iframe>
     </section>
 
     <!-- ---------- CALCULADORA ---------- -->
     <section id="calculadora" class="view">
       <div class="view-header">
         <h2>Calculadora de Ahorros Grandes Usuarios</h2>
-        <a class="external-link" href="https://daniraggio.github.io/calculadora-ahorros/" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
+        <a class="external-link" href="./tableros/calculadora.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
       </div>
-      <iframe class="board-frame" data-src="https://daniraggio.github.io/calculadora-ahorros/" title="Calculadora de Ahorros Grandes Usuarios" loading="lazy"></iframe>
+      <iframe class="board-frame" data-src="./tableros/calculadora.html" title="Calculadora de Ahorros Grandes Usuarios" loading="lazy"></iframe>
+    </section>
+
+    <!-- ---------- API CAMMESA ---------- -->
+    <section id="apicammesa" class="view">
+      <div class="view-header">
+        <h2>API CAMMESA</h2>
+        <a class="external-link" href="./tableros/APIcammesa.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
+      </div>
+      <iframe class="board-frame" data-src="./tableros/APIcammesa.html" title="API CAMMESA" loading="lazy"></iframe>
+    </section>
+
+    <!-- ---------- PROGRAMACIÓN SEMANAL ---------- -->
+    <section id="progsem" class="view">
+      <div class="view-header">
+        <h2>Programación Semanal</h2>
+        <a class="external-link" href="./tableros/ProgSem.html" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
+      </div>
+      <iframe class="board-frame" data-src="./tableros/ProgSem.html" title="Programación Semanal" loading="lazy"></iframe>
     </section>
 
   </div>
